@@ -163,13 +163,10 @@ install -m 0644 system-config/dnf-protected-qubes-core-dom0.conf  \
         $RPM_BUILD_ROOT/etc/dnf/protected.d/qubes-core-dom0.conf
 
 # USBguard and PCIe device handling
-#install -m 0700 -d -- "$RPM_BUILD_ROOT/etc/usbguard" \
-#        "$RPM_BUILD_ROOT/etc/usbguard/rules.d"
-install -m 0600 -- system-config/qubes-usbguard.conf \
-        "$RPM_BUILD_ROOT/etc/usbguard"
-install -m 0600 -- system-config/qubes-usb-rules.conf \
-        "$RPM_BUILD_ROOT/etc/usbguard/rules.d/02-qubes.conf"
-install -D -m 0644 -- system-config/usbguard.service "$RPM_BUILD_ROOT%_unitdir/usbguard.service.d/30_qubes.conf"
+#install -m 0700 -D "$RPM_BUILD_ROOT/etc/usbguard" "$RPM_BUILD_ROOT/etc/usbguard/rules.d"
+install -m 0600 -D system-config/qubes-usbguard.conf "$RPM_BUILD_ROOT/etc/usbguard/qubes-usbguard.conf"
+install -m 0600 -D system-config/qubes-usb-rules.conf "$RPM_BUILD_ROOT/etc/usbguard/rules.d/02-qubes.conf"
+install -m 0644 -D system-config/usbguard.service "$RPM_BUILD_ROOT%_unitdir/usbguard.service.d/30_qubes.conf"
 
 touch $RPM_BUILD_ROOT/var/lib/qubes/.qubes-exclude-block-devices
 
